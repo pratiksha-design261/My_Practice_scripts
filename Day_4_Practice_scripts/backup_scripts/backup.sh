@@ -33,7 +33,7 @@ below cmd explain:
 1.ls -t /home/ubuntu/Scripts/daily_backup | sed -e '1,5d' | xargs -d '/n' rm -- > /dev/null
 ls -t =>will sort folder as per time
 sed -e '1,5d' => Except from 1-5 line data is fw next
-xargs -d '/n' rm --  =>Fw line are cosidering /n (-d: is denoted as delimiter)used to seprated as new line and with us                       ing rm -- it will remove all forwoded 
+xargs -d '/n' rm --  =>Fw line are cosidering /n (-d: is denoted as delimiter)used to seprated as new line and with using rm -- it will remove all forwoded 
 > /dev/null  ==>any output or error will not print on screen 
 
 2.ls -1q "$ {destination_dir}" | wc -l
