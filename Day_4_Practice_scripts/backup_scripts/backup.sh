@@ -11,10 +11,11 @@ source_dir=$1
 timestamp=$(date +"%Y-%m-%d_%H-%M-%S")
 destination_dir="/home/ubuntu/Scripts/daily_backup"
 backup_dir="${destination_dir}/backup_${timestamp}"
+log_file="/home/ubuntu/Scripts/logs/log_for_${timestamp}.txt"
 
 function create_backup {
 
-        zip -r "${backup_dir}.zip" "${source_dir}" > /dev/null
+        zip -r "${backup_dir}.zip" "${source_dir}"
 
         if [ $? -eq 0 ]; then
                 echo "Backup created successfully."
@@ -48,7 +49,7 @@ cmt
                 #need to change directory as other user dont have write permission
                 cd /home/ubuntu/Scripts/daily_backup
 
-                ls -t | sed -e '1,5d' | xargs -d '\n' rm -- > /dev/null
+                ls -t | sed -e '1,5d' | xargs -d '\n' rm --
 
                 if [ $? -eq 0 ]; then
                         echo "oldest backup successfully deleted"
@@ -70,5 +71,28 @@ cmt
 
 }
 
-create_backup
-perform_rotation
+function delete_old_logs {
+        log_folder="/home/ubuntu/Scripts/logs"
+
+        file_count=$(ls "${log_folder}" | wc -l)
+        
+        if [ ${file_count} -gt 10 ]; then
+
+                cd ${log_folder}
+
+                ls -t | sed -e '1,10d' | xargs -d '\n' rm --
+
+                if [ $? -eq 0 ]; then
+                        echo "oldest log files successfully deleted "
+                fi
+
+                cd /home/ubuntu/Scripts
+
+
+        fi
+
+}
+
+create_backup > $log_file 2>&1
+perform_rotation >> $log_file 2>&1
+delete_old_logs >> $log_file 2>&1
