@@ -1,3 +1,7 @@
+<<Note
+before executing script make sure that EBS volume is created and attached to the instance 
+Note
+
 #!/bin/bash
 
 timestamp=$(date +"%Y-%m-%d_%H-%M-%S")
@@ -21,6 +25,9 @@ sudo mount /dev/xvdf /mnt/${foldername} >> $log_file 2>&1
 
 if [ $? -eq 0 ]; then
 
-        echo "Memory sucessfully mounted!!" >> $log_file 2>&1
+        echo "Memory sucessfully mounted on $(date)/n
+        /nHardware details:/n/n
+        df -h" >> $log_file 2>&1
+        echo "Memory sucessfully mounted!!" 
 
 fi
