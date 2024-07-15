@@ -61,3 +61,12 @@ step 2: In browser: setting -> Access tab -> SSH and GPG keys ->Add new key -> A
 Step 3: git clone <SSH-URL>
 step 4: perform regular steps to commit change 
 step 5: push changes to remote 
+
+#### First time adding new project from local to remote
+step 1: create new repo with same name in remote 
+step 2: in targeted local repo use cmd git init
+step 3: git add <file name>
+step 4: git add origin <ssh url>     ==> if you have provide ssh key or use PAT url by modifying as required 
+step 5: git branch  ==>validate branch name 
+step 6: git push origin <branch name>
+
