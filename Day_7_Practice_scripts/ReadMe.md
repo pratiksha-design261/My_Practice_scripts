@@ -53,3 +53,75 @@ step 7: sudo reboot
    20  docker exec -it 0710b53e1a40 bash
    21  clear
    22  history
+
+   ===============================================================================================================================================================================================================================================================
+
+*********************************** Docker Projects **************************************************************************
+# 1: Java 
+
+1. add code get from devloper
+2. create Dockerfile using {vim Dockerfile}
+   Format:
+# Get Base image
+FROM openjdk:17-jdk-alpine  =======> it will specify which env required to run application , data must be get from devlopers 
+
+#Working dir
+WORKDIR /app  ==========>to set working directory to perform any cmd 
+
+#copy codeino the container
+COPY src/Main.java /app/Main.java   ===> main source code will copy to working directory
+
+#compile code
+RUN javac Main.java       ===>to compile jave fie code 
+
+#Run
+CMD ["java","Main"]   ===>the default command to run when the container starts.
+
+3. docker build -t <Image_name>:<version/tag> <working directory>     ==> to buit file to image
+Note: Every line we wite in docker file will create layer in docker image
+
+4. docker run <Iamge_name>:<tag>   => run the docker image {Image to application convert}
+  or while giving name to container: docker run --name my-running-app java-app:v1 
+
+
+# 2: Python
+1. added flask code in directory
+2. create Dockerfile using {vim Dockerfile}
+ Format:
+# base image
+FROM python:3.11     # it will increase the size of application 
+
+#working directory
+WORKDIR /app
+
+#copy code in to the container
+COPY . /app
+
+#required library
+RUN pip install Flask
+
+# run
+CMD ["python","app.py"]
+
+3. docker build -t <Image_name>:<Version>
+4. docker run -d -p 5000:5000 --name my_flask_app flask-app:latest  ====> it will expose the 5000 port to the application name of the container is my_flask_app
+
+
+# 3:Node
+       cd node
+   69  git clone https://github.com/LondheShubham153/node-todo-cicd.git
+   70  s
+   71  ls
+   72  cd node-todo-cicd
+   73  ls
+   74  cat Dockerfile
+   75  vim .dockerignor
+   76  docker build -t node-app:latest
+   77  docker build -t node-app:latest .
+   78  docker images
+   79  docker run -d -p 8000:8000 node-app:latest
+   80  history
+
+***************************************************************************************************************************************************************************************************************************************************
+
+   
